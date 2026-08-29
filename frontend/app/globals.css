@@ -1,0 +1,895 @@
+/* =========================================================================
+   DIRECTOR.AI — GLOBAL STYLES
+   Premium cinematic studio interface
+   Warm paper + gold foil + black screening room
+   No external font imports — zero network dependency, zero @import
+   ordering risk in the build.
+   ========================================================================= */
+
+/* =========================================================================
+   TAILWIND
+   ========================================================================= */
+
+@import "tailwindcss";
+
+/* =========================================================================
+   DESIGN TOKENS
+   ========================================================================= */
+
+:root {
+  /* Studio */
+  --paper: #faf9f5;
+  --paper-raised: #ffffff;
+  --paper-sunken: #f2f0e9;
+
+  /* Ink */
+  --ink: #17140f;
+  --ink-soft: #5b564a;
+  --ink-faint: #8b8574;
+
+  /* Gold */
+  --gold-deep: #9c7a2e;
+  --gold: #c9a44c;
+  --gold-bright: #ecd48a;
+
+  --gold-gradient: linear-gradient(
+    135deg,
+    #ecd48a 0%,
+    #c9a44c 55%,
+    #9c7a2e 100%
+  );
+
+  /* Silver */
+  --silver: #aeb3ba;
+  --silver-bright: #e4e6ea;
+
+  /* Screening room */
+  --screen: #0a0a0b;
+  --screen-raised: #151517;
+  --screen-line: #262624;
+  --screen-text: #ece8db;
+  --screen-text-soft: #8f8a7c;
+
+  /* Borders */
+  --hairline: #e6e1d3;
+  --hairline-strong: #d8d2bf;
+
+  /* Radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+
+  /* Shadows */
+  --shadow-panel:
+    0 1px 2px rgba(23, 20, 15, 0.04),
+    0 12px 32px -16px rgba(23, 20, 15, 0.18);
+
+  --shadow-panel-lg:
+    0 2px 4px rgba(23, 20, 15, 0.05),
+    0 24px 60px -24px rgba(23, 20, 15, 0.28);
+
+  --shadow-gold-glow:
+    0 0 0 1px rgba(201, 164, 76, 0.35),
+    0 8px 24px -8px rgba(201, 164, 76, 0.45);
+
+  /* Typography — local/system fonts only, zero external dependency */
+  --font-display:
+    "Arial Narrow",
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+
+  --font-body:
+    Inter,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+
+  --font-code:
+    "SFMono-Regular",
+    Consolas,
+    "Liberation Mono",
+    Menlo,
+    monospace;
+
+  /* Application */
+  --background: var(--paper);
+  --foreground: var(--ink);
+}
+
+/* =========================================================================
+   TAILWIND THEME
+   ========================================================================= */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-code);
+}
+
+/* =========================================================================
+   GLOBAL RESET
+   ========================================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--paper);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+
+  background: var(--background);
+  color: var(--foreground);
+
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  text-rendering: optimizeLegibility;
+}
+
+/* =========================================================================
+   PREMIUM PAPER GRAIN
+   ========================================================================= */
+
+body::before {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  pointer-events: none;
+  z-index: 9999;
+
+  opacity: 0.45;
+
+  background-image: radial-gradient(
+    rgba(23, 20, 15, 0.025) 1px,
+    transparent 1px
+  );
+
+  background-size: 4px 4px;
+}
+
+/* =========================================================================
+   TYPOGRAPHY
+   ========================================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+
+  font-family: var(--font-display);
+  font-weight: 700;
+
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+
+  color: var(--ink);
+}
+
+p {
+  margin: 0;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: var(--gold-deep);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--gold);
+}
+
+/* =========================================================================
+   FOCUS
+   ========================================================================= */
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* =========================================================================
+   SCROLLBARS
+   ========================================================================= */
+
+.screen::-webkit-scrollbar,
+.screen ::-webkit-scrollbar,
+.scroll-gold::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.screen::-webkit-scrollbar-track,
+.screen ::-webkit-scrollbar-track,
+.scroll-gold::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.screen::-webkit-scrollbar-thumb,
+.screen ::-webkit-scrollbar-thumb,
+.scroll-gold::-webkit-scrollbar-thumb {
+  background: var(--gold-deep);
+  border-radius: 999px;
+}
+
+.screen::-webkit-scrollbar-thumb:hover,
+.screen ::-webkit-scrollbar-thumb:hover,
+.scroll-gold::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}
+
+/* =========================================================================
+   SIGNATURE 35MM FILM SPROCKET RAIL
+   ========================================================================= */
+
+.sprocket-rail {
+  position: relative;
+
+  width: 100%;
+  height: 10px;
+
+  background: var(--gold-gradient);
+
+  overflow: hidden;
+}
+
+.sprocket-rail::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0,
+    transparent 10px,
+    rgba(10, 10, 11, 0.55) 10px,
+    rgba(10, 10, 11, 0.55) 16px
+  );
+}
+
+.sprocket-rail--v {
+  width: 10px;
+  height: 100%;
+}
+
+.sprocket-rail--v::after {
+  background-image: repeating-linear-gradient(
+    180deg,
+    transparent 0,
+    transparent 10px,
+    rgba(10, 10, 11, 0.55) 10px,
+    rgba(10, 10, 11, 0.55) 16px
+  );
+}
+
+/* =========================================================================
+   APP SHELL
+   ========================================================================= */
+
+.app-shell {
+  position: relative;
+  z-index: 1;
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  background: var(--paper);
+}
+
+/* =========================================================================
+   TOP BAR
+   ========================================================================= */
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+
+  padding: 20px 32px;
+
+  background: rgba(255, 255, 255, 0.94);
+
+  border-bottom: 1px solid var(--hairline);
+
+  backdrop-filter: blur(12px);
+}
+
+/* =========================================================================
+   BRAND
+   ========================================================================= */
+
+.brand {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  color: var(--ink);
+
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+
+  width: 34px;
+  height: 34px;
+
+  border-radius: 8px;
+
+  background: var(--screen);
+
+  color: var(--gold);
+
+  box-shadow: var(--shadow-gold-glow);
+}
+
+.brand-accent {
+  background: var(--gold-gradient);
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+}
+
+/* =========================================================================
+   PROMPT BAR
+   ========================================================================= */
+
+.prompt-bar {
+  display: flex;
+
+  gap: 12px;
+
+  width: 100%;
+
+  padding: 28px 32px;
+}
+
+.input {
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 14px 18px;
+
+  background: var(--paper-raised);
+
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius-md);
+
+  color: var(--ink);
+
+  font-family: var(--font-body);
+  font-size: 14.5px;
+
+  box-shadow: inset 0 1px 2px rgba(23, 20, 15, 0.03);
+
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+}
+
+.input::placeholder {
+  color: var(--ink-faint);
+}
+
+.input:hover {
+  border-color: #c9c2ad;
+}
+
+.input:focus {
+  border-color: var(--gold);
+
+  outline: none;
+
+  box-shadow:
+    0 0 0 3px rgba(201, 164, 76, 0.15),
+    inset 0 1px 2px rgba(23, 20, 15, 0.03);
+}
+
+.input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================================================================
+   BUTTONS
+   ========================================================================= */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  padding: 14px 26px;
+
+  border-radius: var(--radius-md);
+
+  font-family: var(--font-display);
+  font-size: 13.5px;
+  font-weight: 700;
+
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+  white-space: nowrap;
+
+  transition:
+    transform 120ms ease,
+    box-shadow 150ms ease,
+    filter 150ms ease,
+    border-color 150ms ease,
+    opacity 150ms ease;
+
+  user-select: none;
+}
+
+.btn:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Primary gold button */
+
+.btn-primary {
+  border: 1px solid var(--gold-deep);
+
+  background: var(--gold-gradient);
+
+  color: var(--screen);
+
+  box-shadow: var(--shadow-gold-glow);
+}
+
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.07);
+
+  box-shadow:
+    0 0 0 1px rgba(201, 164, 76, 0.45),
+    0 12px 28px -8px rgba(201, 164, 76, 0.55);
+}
+
+/* Ghost button */
+
+.btn-ghost {
+  border: 1px solid var(--hairline-strong);
+
+  background: transparent;
+
+  color: var(--ink-soft);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  border-color: var(--gold);
+
+  background: rgba(201, 164, 76, 0.05);
+
+  color: var(--ink);
+}
+
+/* =========================================================================
+   PREMIUM PANELS
+   ========================================================================= */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+
+  background: var(--paper-raised);
+
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+
+  box-shadow: var(--shadow-panel);
+
+  overflow: hidden;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 10px;
+
+  padding: 14px 20px;
+
+  background: rgba(250, 249, 245, 0.7);
+
+  border-bottom: 1px solid var(--hairline);
+
+  color: var(--ink-soft);
+
+  font-family: var(--font-display);
+  font-size: 12.5px;
+  font-weight: 700;
+
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.panel-header-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.panel-header-label::before {
+  content: "";
+
+  flex: 0 0 auto;
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: var(--gold);
+
+  box-shadow: 0 0 0 3px rgba(201, 164, 76, 0.18);
+}
+
+.panel-body {
+  padding: 20px;
+  flex: 1;
+  min-height: 0;
+}
+
+/* =========================================================================
+   SCREENING ROOM
+   ========================================================================= */
+
+.screen {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  background: var(--screen);
+
+  border: 1px solid var(--screen-line);
+  border-radius: var(--radius-lg);
+
+  color: var(--screen-text);
+
+  box-shadow:
+    var(--shadow-panel-lg),
+    inset 0 0 0 1px rgba(201, 164, 76, 0.06);
+
+  overflow: hidden;
+}
+
+.screen-header {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 12px 18px;
+
+  background: var(--screen-raised);
+
+  border-bottom: 1px solid var(--screen-line);
+
+  color: var(--gold-bright);
+
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.screen-body {
+  padding: 18px 20px;
+  flex: 1;
+  min-height: 0;
+
+  color: var(--screen-text);
+
+  font-family: var(--font-code);
+  font-size: 13px;
+
+  line-height: 1.65;
+}
+
+/* JSON editor textarea living inside .screen-body */
+
+.json-editor {
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+
+  color: var(--screen-text);
+
+  font-family: var(--font-code);
+  font-size: 13px;
+  line-height: 1.65;
+
+  caret-color: var(--gold-bright);
+}
+
+.json-editor::selection {
+  background: rgba(201, 164, 76, 0.28);
+}
+
+/* =========================================================================
+   JSON SYNTAX (for read-only highlighted views)
+   ========================================================================= */
+
+.tok-key {
+  color: var(--gold-bright);
+}
+
+.tok-string {
+  color: #9fd5c4;
+}
+
+.tok-number {
+  color: #e39a6b;
+}
+
+.tok-punct {
+  color: var(--screen-text-soft);
+}
+
+/* =========================================================================
+   VIDEO PREVIEW
+   ========================================================================= */
+
+.preview-frame {
+  position: relative;
+
+  padding: 3px;
+
+  border-radius: var(--radius-lg);
+
+  background: var(--gold-gradient);
+
+  box-shadow: var(--shadow-panel-lg);
+}
+
+.preview-frame__inner {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  aspect-ratio: 16 / 9;
+
+  background: var(--screen);
+
+  border-radius: calc(var(--radius-lg) - 3px);
+
+  overflow: hidden;
+}
+
+.preview-placeholder {
+  color: var(--screen-text-soft);
+
+  font-family: var(--font-display);
+  font-size: 12.5px;
+
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* =========================================================================
+   DIALOGUE CHIP
+   ========================================================================= */
+
+.dialogue-chip {
+  position: absolute;
+
+  left: 16px;
+  bottom: 16px;
+
+  max-width: calc(100% - 32px);
+
+  padding: 8px 14px;
+
+  background: rgba(10, 10, 11, 0.84);
+
+  border: 1px solid rgba(201, 164, 76, 0.4);
+  border-radius: var(--radius-sm);
+
+  color: var(--screen-text);
+
+  font-size: 13px;
+
+  backdrop-filter: blur(8px);
+}
+
+.dialogue-chip .speaker {
+  margin-right: 6px;
+
+  color: var(--gold-bright);
+
+  font-weight: 700;
+}
+
+/* =========================================================================
+   EYEBROW
+   ========================================================================= */
+
+.eyebrow {
+  color: var(--gold-deep);
+
+  font-family: var(--font-display);
+  font-size: 11.5px;
+  font-weight: 700;
+
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* =========================================================================
+   HAIRLINE DIVIDER
+   ========================================================================= */
+
+.divider-hairline {
+  width: 100%;
+  height: 1px;
+
+  margin: 0;
+
+  background: var(--hairline);
+
+  border: 0;
+}
+
+/* =========================================================================
+   GOLD BADGE
+   ========================================================================= */
+
+.badge-gold {
+  display: inline-flex;
+  align-items: center;
+
+  gap: 6px;
+
+  padding: 4px 10px;
+
+  border: 1px solid rgba(201, 164, 76, 0.3);
+  border-radius: 999px;
+
+  background: rgba(201, 164, 76, 0.12);
+
+  color: var(--gold-deep);
+
+  font-size: 11.5px;
+  font-weight: 700;
+
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* =========================================================================
+   STUDIO LAYOUT GRID
+   ========================================================================= */
+
+.studio-main {
+  flex: 1;
+  min-height: 0;
+}
+
+.studio-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+
+  height: 100%;
+  padding: 0 32px 32px;
+}
+
+.studio-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+}
+
+/* =========================================================================
+   REDUCED MOTION
+   ========================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =========================================================================
+   MOBILE
+   ========================================================================= */
+
+@media (max-width: 960px) {
+  .studio-grid {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+}
+
+@media (max-width: 720px) {
+  .top-bar,
+  .prompt-bar,
+  .studio-grid {
+    padding: 16px;
+  }
+
+  .prompt-bar {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .panel-body {
+    padding: 16px;
+  }
+
+  .screen-body {
+    padding: 16px;
+  }
+}
