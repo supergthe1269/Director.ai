@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎬 Director.ai — Frontend
 
-## Getting Started
+The Next.js studio UI for **Director.ai**. Turns a story prompt (and the `DirectorScript`
+JSON produced by the backend) into a **live cinematic preview** powered by Remotion.
 
-First, run the development server:
+## What's in here
+
+| File | Purpose |
+|---|---|
+| `app/page.tsx` | Main studio screen — control panel (prompt + editable Director Script JSON) on the left, video viewport on the right |
+| `app/layout.tsx` | Root layout with Geist fonts |
+| `components/VideoPlayer.tsx` | Wraps the Remotion `<Player>`, computes total frames from the script |
+| `remotion/CinematicSequence.tsx` | Sequenced shots with dialogue overlay bubbles |
+| `remotion/Shot.tsx` | Renders one AI keyframe with Ken Burns style camera motion |
+| `app/globals.css` | Tailwind CSS v4 entry |
+
+## Tech stack
+
+- **[Next.js 16](https://nextjs.org)** (App Router, TypeScript, React 19)
+- **[Remotion](https://www.remotion.dev)** `<Player>` — browser-based video rendering
+- **Tailwind CSS 4** — styling
+- **lucide-react** — icons
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+A built-in **demo cyberpunk sequence** (`DEFAULT_SCRIPT` in `app/page.tsx`) plays
+immediately, so the UI works even if the backend isn't running.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Working with the backend
 
-## Learn More
+The "Generate" button sends your prompt to the FastAPI backend:
 
-To learn more about Next.js, take a look at the following resources:
+```
+POST http://localhost:8000/api/generate
+{ "prompt": "<your story premise>" }
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The returned `DirectorScript` JSON replaces the current script, and the video
+re-renders instantly.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+> The backend URL is hardcoded in `app/page.tsx`. Update it there if your backend
+> runs on a different host/port. See the [root README](../README.md) for backend setup.
 
-## Deploy on Vercel
+## Editing the director script live
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The left-side control panel shows the live script as JSON. Edit it in place:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Shots are the `shots[]` array — each has `duration_seconds`, `visual_description`,
+  `camera_motion.type`, optional `dialogue`, and `image_url`.
+- Camera motion types: `Dolly In` · `Dolly Out` · `Pan Left` · `Pan Right` ·
+  `Tilt Up` · `Tilt Down` · `Static`
+- Invalid JSON while typing is ignored; valid JSON re-renders the preview.
+
+## Scripts
+
+| Command | Description |
+|---|---|
+| `npm run dev` | Start the dev server |
+| `npm run build` | Production build |
+| `npm run start` | Serve the production build |
+| `npm run lint` | Run ESLint |
+
+This is the frontend of the **Director.ai** project — see the [root README](../README.md)
+for the full picture (architecture, backend, API, data flow).
